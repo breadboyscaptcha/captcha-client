@@ -16,10 +16,10 @@
                     class="px-4 py-2 bg-stone-800 border-zinc-300 border rounded-xl w-24 transition duration-500 ease-in-out transform hover:-translate-y-1">Go</button>
             </form>
         </div>
-        <div :class="`${submitted ? `visible` : `invisible`} bg-black/40 backdrop-blur-xl fixed w-full z-50 inset-0`">
+        <div :class="`${submitted ? `visible` : `invisible`} bg-black/40 min-h-screen backdrop-blur-xl fixed w-full z-50 inset-0`">
             <div class="max-w-2xl mx-auto mt-16">
                 <BBCaptcha v-if="captcha_id" :image="captcha_image" :prompts="captcha_prompts" @update="checkResults" />
-                <img v-else src="/loading.gif" class="mx-auto" />
+                <img v-else src="/loading.gif" class="mx-auto w-24 h-24 mt-12" />
             </div>
         </div>
     </NuxtLayout>
