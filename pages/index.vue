@@ -32,7 +32,7 @@ const captcha_image = ref("")
 async function verifyHooman(e: Event) {
     e.preventDefault();
     (e.currentTarget as HTMLFormElement).reset()
-    const res = await fetch("http://localhost:8080/challenge").then(r => r.json())
+    const res = await fetch("https://breadboyscaptcha.deno.dev/challenge").then(r => r.json())
 
     const { image, prompts, id } = res as { image: string, prompts: [string, string][], id: number }
     captcha_id.value = id;
@@ -42,7 +42,7 @@ async function verifyHooman(e: Event) {
 }
 
 async function checkResults(points: [number, number][]) {
-    const res = await fetch("http://localhost:8080/challenge", {
+    const res = await fetch("https://breadboyscaptcha.deno.dev/challenge", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ id: captcha_id.value, points })
