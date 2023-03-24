@@ -16,15 +16,17 @@
                     class="px-4 py-2 bg-stone-800 border-zinc-300 border rounded-xl w-24 transition duration-500 ease-in-out transform hover:-translate-y-1">Go</button>
             </form>
         </div>
-        <div :class="`${captcha_id ? `visible` : `invisible`} bg-black/40 backdrop-blur-xl fixed w-full z-50 inset-0`">
+        <div :class="`${submitted ? `visible` : `invisible`} bg-black/40 backdrop-blur-xl fixed w-full z-50 inset-0`">
             <div class="max-w-2xl mx-auto mt-16">
-                <BBCaptcha :image="captcha_image" :prompts="captcha_prompts" @update="checkResults" />
+                <BBCaptcha v-if="captcha_id" :image="captcha_image" :prompts="captcha_prompts" @update="checkResults" />
+                <img v-else src="/loading.gif" class="mx-auto" />
             </div>
         </div>
     </NuxtLayout>
 </template>
 
 <script setup lang="ts">
+const submitted = ref(false)
 const router = useRouter()
 const captcha_id = ref(0)
 const captcha_prompts = ref<[string, string][]>([["", ""], ["", ""]])
@@ -32,6 +34,7 @@ const captcha_image = ref("")
 async function verifyHooman(e: Event) {
     e.preventDefault();
     (e.currentTarget as HTMLFormElement).reset()
+    submitted.value = true;
     const res = await fetch("https://breadboyscaptcha.deno.dev/challenge").then(r => r.json())
 
     const { image, prompts, id } = res as { image: string, prompts: [string, string][], id: number }
