@@ -19,7 +19,8 @@
         <div :class="`${submitted ? `visible` : `invisible`} bg-black/40 min-h-screen backdrop-blur-xl fixed w-full z-50 inset-0`">
             <div class="max-w-2xl mx-auto mt-16">
                 <BBCaptcha v-if="captcha_id" :image="captcha_image" :prompts="captcha_prompts" @update="checkResults" />
-                <img v-else src="/loading.gif" class="mx-auto w-48 h-48 mt-32" />
+                <!--<img v-else src="/loading.gif" class="mx-auto w-48 h-48 mt-32" />-->
+                <div class="mt-8 mx-auto max-w-6xl text-4xl text-center font-semibold uppercase">Loading</div>
             </div>
         </div>
     </NuxtLayout>
